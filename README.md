@@ -1,2 +1,2 @@
 # guilded-api.js
-Official source-code for GuildedAPI.js package!
+Official source-code for GuildedAPI.js package!o
