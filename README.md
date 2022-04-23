@@ -1,3 +1,2 @@
-# guilded-api.js
-Official source-code for GuildedAPI.js package!
-he
+# Welcome!
+This is the official source-code for the Guilded-API.js Documentation, made possible with GitHub Pages!
