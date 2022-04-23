@@ -1,0 +1,10 @@
+:root,
+:root[theme='DEFAULT'] {
+  --primary: #7289DA;
+  --heading: white;
+  --font: white;
+  
+  --background-primary: #3b5493;
+  --background-secondary: #314780;
+  --background-tertiary: #202225;
+}
