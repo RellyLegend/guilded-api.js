@@ -11,7 +11,7 @@ As of 23/04/22, we've brought some __AMAZING__ updates for you!
 ### _Webhooks_
 > *Webhook events, we are planning to add support to control them too.*
 ### _Replying_
-> *You can now reply in your message event, using `message.reply('message here.')`!
+> *You can now reply in your message event, using `message.reply('message here.')`!*
 ### _Messaging Options Support
 > *Now, you can also include whether your message should be private or silent!*
 > *Usage: `message.channel.send('A private & silent message!', { options: { isPrivate: true, isSilent: true } })`*
