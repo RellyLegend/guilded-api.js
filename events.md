@@ -1,5 +1,13 @@
 # Guilded-API.js - Events
 
+## ready
+Listens for when the bot is connected to the Guilded Gateway.
+```js
+<GuildedClient>.on('ready', () => {
+    console.log("Logged into Guilded!");
+});
+```
+
 ## serverMessageCreate
 Listens for when a new message in a server is created.
 ```js
