@@ -1,0 +1,28 @@
+{
+  "name": "guilded-api.js",
+  "version": "1.1.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RellyLegend/guilded-api.js.git"
+  },
+  "keywords": [
+    "guilded",
+    "guilded-api"
+  ],
+  "author": "https://github.com/RellyLegend",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RellyLegend/guilded-api.js/issues"
+  },
+  "homepage": "https://github.com/RellyLegend/guilded-api.js#readme",
+  "dependencies": {
+    "events": "^3.3.0",
+    "node-fetch": "^2.6.5",
+    "ws": "^8.5.0"
+  }
+}
