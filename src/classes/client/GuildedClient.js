@@ -1,87 +1,74 @@
-const EventEmitter = require('events');
-const WebSocket = require('ws');
-const { GuildedMessage } = require('../GuildedMessage');
-const { GuildedServerMember } = require('../user/GuildedServerMember');
-const { GuildedServerMemberBan } = require('../user/GuildedServerMemberBan');
-const { GuildedWebhook } = require('../webhook/GuildedWebhook');
+const { EventEmitter } = require('events');
+const { GuildedClientWebSocket } = require('./GuildedClientWebSocket');
 
-class GuildedClientWebSocket extends EventEmitter {
-    constructor(client) {
+class GuildedClient extends EventEmitter {
+    /**
+     * 
+     * @param {String} authToken Your bot's Auth Token given by Guilded.
+     */
+    constructor(authToken = String) {
         super();
 
+        this.authToken = authToken;
         this.ws = null;
-        this.client = client;
-        this.connected = false;
     }
 
-    connect() {
-
-        const authToken = this.client.authToken;
+    login() {
+        this.ws = new GuildedClientWebSocket(this);
+        this.ws.connect();
         
-        this.ws = new WebSocket(`wss://api.guilded.gg/v1/websocket`, {
-            headers: {
-                'Authorization': `Bearer ${authToken}`,
-            },
-        });
-        
-        // Events
-
         this.ws.on('open', () => {
-            this.connected = true;
-            this.emit('open');
+            this.emit('ready');
         });
 
-        this.ws.on('message', (data) => {
-            
-            const { t: eventType, d: eventData } = JSON.parse(data);
-            
-
-            switch (eventType) {
-                case 'ChatMessageCreated':
-                    this.emit('messageCreated', new GuildedMessage(authToken, eventData.message));
-                    break;
-                case 'ChatMessageUpdated':
-                    this.emit('messageUpdated', new GuildedMessage(authToken, eventData.message));
-                    break;
-                case 'ChatMessageDeleted':
-                    this.emit('messageDeleted', new GuildedMessage(authToken, eventData.message));
-                    break;
-                case 'TeamMemberJoined':
-                    this.emit('memberAdded', new GuildedServerMember(eventData));
-                    break;
-                case 'TeamMemberRemoved':
-                    this.emit('memberRemoved', new GuildedServerMember(eventData));
-                    break;
-                case 'TeamMemberBanned':
-                    this.emit('memberBanned', new GuildedServerMemberBan(eventData));
-                    break;
-                case 'TeamMemberUnbanned':
-                    this.emit('memberUnbanned', new GuildedServerMemberBan(eventData));
-                    break;
-                case 'TeamMemberUpdated':
-                    this.emit('memberUpdated', new GuildedServerMember(eventData));
-                    break;
-                case 'teamRolesUpdated':
-                    this.emit('memberRolesUpdated', new GuildedServerMember(eventData));
-                    break;
-                case 'TeamWebhookCreated':
-                    this.emit('webhookCreated', new GuildedWebhook(eventData));
-                    break;
-                case 'TeamWebhookUpdated':
-                    this.emit('webhookUpdated', new GuildedWebhook(eventData));
-                    break;
-            };
+        this.ws.on('messageCreated', (message) => {
+            this.emit('serverMessageCreate', message);
         });
 
-        this.ws.on('close', () => {
-            this.connected = false;
-            this.emit('closed');
+        this.ws.on('messageUpdated', (message) => {
+            this.emit('serverMessageUpdate', message);
+        });
+
+        this.ws.on('messageDeleted', (message) => {
+            this.emit('serverMessageDelete', message);
+        });
+
+        this.ws.on('memberAdded', (member) => {
+            this.emit('serverMemberJoin', member);
+        });
+
+        this.ws.on('memberRemoved', (member) => {
+            this.emit('serverMemberLeft', member);
+        });
+
+        this.ws.on('memberBanned', (member) => {
+            this.emit('serverMemberBan', member);
+        });
+
+        this.ws.on('memberUnbanned', (member) => {
+            this.emit('serverMemberUnban', member);
+        });
+
+        this.ws.on('memberRolesUpdated', (member) => {
+            this.emit('serverMemberUpdate', member);
+        });
+
+        this.ws.on('webhookCreated', (webhook) => {
+            this.emit('serverWebhookCreate', webhook);
+        });
+
+        this.ws.on('webhookUpdated', (webhook) => {
+            this.emit('serverWebhookUpdate', webhook);
+        });
+
+        this.ws.on('closed', () => {
+            this.emit('disconnect');
         });
 
         this.ws.on('error', (error) => {
             this.emit('error', error);
         });
     }
-};
+}
 
-module.exports.GuildedClientWebSocket = GuildedClientWebSocket;
+module.exports.GuildedClient = GuildedClient;          
