@@ -38,6 +38,14 @@ Listens for when a sent message in a server is edited/updated.
 });
 ```
 
+## serverMessageDelete
+Listens for when a sent message in a server is deleted.
+```js
+<GuildedClient>.on('serverMessageDelete', (message) => {
+    console.log(`User with ID ${message.author.id} deleted a message!`);
+});
+```
+
 `message` property:
 
 | Property      | Type |
