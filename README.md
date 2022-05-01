@@ -45,6 +45,11 @@ bot.on('serverMessageUpdate', (message) => {
 bot.login();
 ```
 
+## Places
+- [Home](/)
+- [Events](/events)
+- [Guide](/guide)
+
 ## Support
 
 Where may you ask for support? Come to our [support guilded server](https://guilded.gg/GAW)!
