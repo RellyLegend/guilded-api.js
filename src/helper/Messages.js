@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 
 module.exports = new class {
     
-    sendMessage(message, channelId, authToken, isPrivate, isSilent, replyIds) {
+    sendMessage(message, embeds, channelId, authToken, isPrivate, isSilent, replyIds) {
         return fetch(`${endpoints.CHANNELS_MESSAGES(channelId)}`, {
             method: 'POST',
             headers: {
@@ -12,6 +12,7 @@ module.exports = new class {
             },
             body: JSON.stringify({
                 content: message,
+                embeds: embeds ? embeds : null,
                 isPrivate: isPrivate ? true : false,
                 isSilent: isSilent ? true : false,
             }),
