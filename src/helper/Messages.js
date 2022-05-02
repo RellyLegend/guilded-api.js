@@ -12,7 +12,7 @@ module.exports = new class {
             },
             body: JSON.stringify({
                 content: message,
-                embeds: embeds,
+                embeds: embeds ? embeds : null,
                 isPrivate: isPrivate ? true : false,
                 isSilent: isSilent ? true : false,
             }),
