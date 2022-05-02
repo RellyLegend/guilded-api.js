@@ -1,0 +1,117 @@
+function MessageEmbed(){
+ this.title = null;
+ this.description = null;
+ this.url = null;
+ this.timestamp = 0;
+ this.color = 0;
+ this.footer = null;
+ this.image = null;
+ this.thumbnail = null;
+ this.video = null;
+ this.provider = null;
+ this.author = null;
+ this.fields = [];
+  
+
+  
+}
+
+
+
+MessageEmbed.prototype.setTitle = function(title){
+ this.title = title;
+  return this;
+}
+
+
+MessageEmbed.prototype.setDescription = function(description){
+ this.description = description;
+  return this;
+}
+
+MessageEmbed.prototype.setUrl = function(url){
+ this.url = url;
+  return this;
+}
+
+MessageEmbed.prototype.setTimestamp = function(){
+  var today = new Date();
+  today.toISOString();
+  this.timestamp = today;
+  return this;
+}
+
+
+MessageEmbed.prototype.setColor = function(Color){
+
+ this.color = Color;
+  return this;
+}
+
+
+MessageEmbed.prototype.setFooter = function(text, iconUrl, icon_url){
+ this.footer = {
+   text: text ? text : null,
+   iconUrl: iconUrl ? iconUrl : null,
+   icon_url: icon_url ? icon_url : null,
+ };
+  return this;
+}
+
+MessageEmbed.prototype.setImage = function(url, height, width){
+ this.image = {
+   url: url ? url : null,
+   height: height ? height : null,
+   width: width ? width : null,
+ };
+  return this;
+}
+
+
+MessageEmbed.prototype.setThumbnail = function(url, height, width){
+ this.thumbnail = {
+   url: url ? url : null,
+   height: height ? height : null,
+   width: width ? width : null,
+ };
+  return this;
+}
+
+MessageEmbed.prototype.setVideo = function(url, height, width){
+ this.video = {
+   url: url ? url : null,
+   height: height ? height : null,
+   width: width ? width : null,
+ };
+  return this;
+}
+
+MessageEmbed.prototype.setProvider = function(name, url){
+ this.provider = {
+   name: name ? name : null,
+   url: url ? url : null,
+ };
+  return this;
+}
+
+MessageEmbed.prototype.setAuthor = function(name, url, iconUrl, icon_url){
+ this.author = {
+   name: name ? name : null,
+   url: url ? url : null,
+   iconUrl: iconUrl ? iconUrl : null,
+   icon_url: icon_url ? icon_url : null,
+ };
+  return this;
+}
+
+MessageEmbed.prototype.addField = function(name, value, inline){
+  const obj = {
+   name: name ? name : null,
+   value: value ? value : null,
+   inline: inline ? inline : false,
+ }
+ this.fields.push(obj);
+  return this;
+}
+
+module.exports = MessageEmbed;
